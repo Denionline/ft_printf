@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_puthexa_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 14:56:18 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/23 16:12:52 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
+/*   Updated: 2025/04/23 18:39:54 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_puthexa_fd(int n, int c, int fd)
 {
-	ft_putstr_fd(ft_itoa(n), 1);
+	const char	*hexa = "0123456789abcdef";
+
+	if (n >= 16)
+		ft_puthexa_fd((n / 16), c, fd);
+	if (c == 'X')
+		ft_putchar_fd(ft_toupper(hexa[n % 16]), fd);
+	else
+		ft_putchar_fd(hexa[n % 16], fd);
 }

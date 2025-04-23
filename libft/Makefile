@@ -25,7 +25,7 @@ COLOR_WHITE = \033[0;97m
 
 SRC_PATH        = src
 BUILD_PATH      = .build
-INCLUDE_PATH	= $(SRC_PATH)/include
+INCLUDE_PATH	= include
 
 FT_IS_PATH      = ft_is
 FT_TO_PATH      = ft_to

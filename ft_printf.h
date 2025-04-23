@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 14:56:18 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/23 16:12:52 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/23 10:42:07 by dximenes          #+#    #+#             */
+/*   Updated: 2025/04/23 18:12:16 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
 
-void	ft_putnbr_fd(int n, int fd)
-{
-	ft_putstr_fd(ft_itoa(n), 1);
-}
+# define FT_PRINTF_H
+
+# include <stdio.h>
+# include <stdarg.h>
+# include "libft/include/libft.h"
+
+int		ft_printf(const char *format, ...);
+void	ft_puthexa_fd(int n, int c, int fd);
+
+#endif
