@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/23 18:39:54 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:53:35 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_puthexa_fd(int n, int c, int fd)
 	if (n >= 16)
 		ft_puthexa_fd((n / 16), c, fd);
 	if (c == 'X')
-		ft_putchar_fd(ft_toupper(hexa[n % 16]), fd);
+		ft_putchar_fd((char)ft_toupper(hexa[n % 16]), fd);
 	else
 		ft_putchar_fd(hexa[n % 16], fd);
 }

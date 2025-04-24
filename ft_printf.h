@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:42:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/23 18:12:16 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:09:46 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 # define FT_PRINTF_H
 
 # include <stdio.h>
+# include <stdint.h>
 # include <stdarg.h>
-# include "libft/include/libft.h"
+# include "libft.h"
 
 int		ft_printf(const char *format, ...);
 void	ft_puthexa_fd(int n, int c, int fd);
