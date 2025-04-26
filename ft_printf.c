@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/24 12:12:51 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:03:39 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_printf(const char *format, ...)
 			if (*format == 'p')
 			{
 				ft_putstr_fd("0x", 1);
-				ft_puthexa_fd(va_arg(args, int), *format, 1);
+				ft_puthexa_fd(va_arg(args, unsigned long long), *format, 1);
 			}
 		}
 		else

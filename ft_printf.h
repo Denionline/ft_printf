@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:42:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/24 12:09:46 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:54:16 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <stdarg.h>
-# include "libft.h"
+# include "libft/include/libft.h"
 
 int		ft_printf(const char *format, ...);
-void	ft_puthexa_fd(int n, int c, int fd);
+void	ft_puthexa_fd(unsigned long long n, int c, int fd);
 
 #endif
