@@ -24,13 +24,14 @@ LIBFT_NAME	= libft.a
 #                                     Paths                                    #
 # **************************************************************************** #
 
-SRC_PATH		= .
+SRC_PATH		= src
 LIBFT_PATH		= libft
+INCLUDE_PATH	= include
 
 FILES		+= ft_printf.c
-FILES		+= ft_puthexa_fd.c
+# FILES		+= ft_puthexa.c
 
-SRC			= $(addprefix ./, $(FILES))
+SRC			= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS		= $(SRC:%.c=%.o)
 
 # **************************************************************************** #
@@ -39,6 +40,7 @@ OBJS		= $(SRC:%.c=%.o)
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
+INC			= -I$(INCLUDE_PATH)
 
 # **************************************************************************** #
 #                                     Comands                                  #
@@ -57,14 +59,14 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_PATH)
-	@cp $(LIBFT_PATH)/$(LIBFT_NAME) $(SRC_PATH)
+	@cp $(LIBFT_PATH)/$(LIBFT_NAME) .
 	@mv $(LIBFT_NAME) $(NAME)
 	@$(AR) $(NAME) $(OBJS)
 	@printf "$(COLOR_GREEN)Created archive $(NAME)$(COLOR_DEF_COLOR)\n"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(COLOR_YELLOW)Compiled:$(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
 
 clean:
 	@make clean -C $(LIBFT_PATH)

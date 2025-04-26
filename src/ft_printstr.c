@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthexa_fd.c                                    :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/24 17:03:51 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/26 17:32:30 by dximenes          #+#    #+#             */
+/*   Updated: 2025/04/26 17:54:42 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "include/ft_printf.h"
 
-void	ft_puthexa_fd(unsigned long long n, int c, int fd)
+int ft_printstr(const char *str)
 {
-	const char	*hexa = "0123456789abcdef";
+	size_t	bytes;
 
-	if (n >= 16)
-		ft_puthexa_fd((n / 16), c, fd);
-	if (c == 'X')
-		ft_putchar_fd((char)ft_toupper(hexa[n % 16]), fd);
-	else
-		ft_putchar_fd(hexa[n % 16], fd);
+	bytes = 0;
+	while (str[bytes])
+		bytes += ft_printchar(str[bytes]);
+	return (bytes);
 }
