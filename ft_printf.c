@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/24 17:03:39 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/04/26 15:14:01 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list args;
-
+	//
 	va_start(args, format);
 	while (*format)
 	{
