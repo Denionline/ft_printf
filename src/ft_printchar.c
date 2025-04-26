@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:31:21 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/26 17:51:22 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:57:10 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int ft_printchar(int c)
 {
-    ft_putchar_fd(c, 1);
+	int	fd;
+
+	fd = 1;
+	ft_putchar_fd(c, fd);
 	return (1);
 }
