@@ -119,11 +119,11 @@ all: $(BUILD_PATH) $(NAME)
 
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
-	@printf "$(COLOR_GREEN)Created archive $(NAME)$(COLOR_DEF_COLOR)\n"
+	@printf "$(COLOR_GREEN)Created archive $(COLOR_YELLOW)$(NAME)$(COLOR_DEF_COLOR)\n"
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(COLOR_YELLOW)Compiled:$(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
+	@printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)

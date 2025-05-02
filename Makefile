@@ -24,12 +24,17 @@ LIBFT_NAME	= libft.a
 #                                     Paths                                    #
 # **************************************************************************** #
 
-SRC_PATH		= src
+SRC_PATH		= .
 LIBFT_PATH		= libft
 INCLUDE_PATH	= include
 
 FILES		+= ft_printf.c
-# FILES		+= ft_puthexa.c
+FILES		+= ft_printhexa.c
+FILES		+= ft_printstr.c
+FILES		+= ft_printchar.c
+FILES		+= ft_printnbr.c
+FILES		+= ft_printptr.c
+FILES		+= ft_printuint.c
 
 SRC			= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS		= $(SRC:%.c=%.o)
@@ -62,11 +67,21 @@ $(NAME): $(OBJS)
 	@cp $(LIBFT_PATH)/$(LIBFT_NAME) .
 	@mv $(LIBFT_NAME) $(NAME)
 	@$(AR) $(NAME) $(OBJS)
-	@printf "$(COLOR_GREEN)Created archive $(NAME)$(COLOR_DEF_COLOR)\n"
+	@printf "$(COLOR_GREEN)Created archive $(COLOR_YELLOW)$(NAME)$(COLOR_DEF_COLOR)\n"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 	@printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
+
+main:
+	@$(CC) $(CFLAGS) main.c $(NAME)
+	@./a.out
+	@$(RM) a.out
+
+val:
+	@$(CC) $(CFLAGS) main.c $(NAME)
+	@valgrind ./a.out
+	@$(RM) a.out
 
 clean:
 	@make clean -C $(LIBFT_PATH)

@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printhexa.c                                     :+:      :+:    :+:   */
+/*   ft_printnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/26 17:49:09 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/26 17:34:45 by dximenes          #+#    #+#             */
+/*   Updated: 2025/04/27 11:13:35 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-int	ft_printhexa(unsigned long long n, int c)
+int ft_printnbr(int nbr)
 {
-	const char	*hexa = "0123456789abcdef";
-	size_t		bytes;
+	size_t	bytes;
+	char	*string;
 
+	string = ft_itoa(nbr);
 	bytes = 0;
-	if (n >= 16)
-		bytes += ft_printhexa((n / 16), c);
-	if (c == 'X')
-		bytes += ft_printchar((char)ft_toupper(hexa[n % 16]));
-	else
-		bytes += ft_printchar(hexa[n % 16]);
+	while (string[bytes])
+		bytes += ft_printchar(string[bytes]);
+	free(string);
 	return (bytes);
 }
