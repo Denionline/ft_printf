@@ -6,13 +6,13 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:37:57 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/01 10:43:47 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/03 09:30:42 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-static size_t	fh_getsizehexa(uintptr_t nbr)
+static size_t	fh_sizehexa(uintptr_t nbr)
 {
 	size_t	i;
 
@@ -25,37 +25,34 @@ static size_t	fh_getsizehexa(uintptr_t nbr)
 	return (i);
 }
 
-static char	*fh_printllhexa(uintptr_t n)
+static int	fh_printhexa(uintptr_t n)
 {
 	const char	*hexa = "0123456789abcdef";
+	size_t		bytes;
 	size_t		size;
 	char		*buffer;
 
-	size = fh_getsizehexa(n);
+	size = fh_sizehexa(n);
 	buffer = (char *)malloc(size + 1);
 	if (!buffer)
-		return (NULL);
+		return (0);
 	buffer[size] = '\0';
 	while (size--)
 	{
-		buffer[size] = (char)hexa[n & 0xF];
-		n >>= 4;
+		buffer[size] = (char)hexa[n % 16];
+		n /= 16;
 	}
-	return (buffer);
+	bytes = ft_printstr(buffer);
+	free(buffer);
+	return (bytes);
 }
 
 int	ft_printptr(void *nbr)
 {
 	uintptr_t	addr;
-	size_t		bytes;
-	char		*str;
 
 	addr = (uintptr_t)nbr;
 	if (addr == 0)
 		return (ft_printstr("(nil)"));
-	bytes = ft_printstr("0x");
-	str = fh_printllhexa(addr);
-	bytes += ft_printstr(str);
-	free(str);
-	return (bytes);
+	return (ft_printstr("0x") + fh_printhexa(addr));
 }

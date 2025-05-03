@@ -6,15 +6,15 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:07:21 by dximenes          #+#    #+#             */
-/*   Updated: 2025/04/30 12:41:48 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:34:35 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-static size_t ft_uintsize(unsigned int n)
+static size_t	ft_uintsize(unsigned int n)
 {
-	size_t  size;
+	size_t	size;
 
 	size = 1;
 	while (n >= 10)
@@ -24,6 +24,7 @@ static size_t ft_uintsize(unsigned int n)
 	}
 	return (size);
 }
+
 int	ft_printuint(unsigned int n)
 {
 	size_t	bytes;
