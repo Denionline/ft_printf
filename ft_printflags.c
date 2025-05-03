@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   ft_printflags.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 17:32:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/03 12:44:38 by dximenes         ###   ########.fr       */
+/*   Created: 2025/05/03 14:58:48 by dximenes          #+#    #+#             */
+/*   Updated: 2025/05/03 18:03:23 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
+// #include "include/ft_printf.h"
 
-int	ft_printstr(const char *str)
-{
-	size_t	bytes;
+// int	ft_printflags(const char *format, va_list args, t_flag	*flags)
+// {
+// 	size_t	bytes;
+// 	size_t	size;
 
-	bytes = 0;
-	if (!str)
-		bytes = ft_printstr("(null)");
-	else if (*str)
-		while (str[bytes])
-			bytes += ft_printchar(str[bytes]);
-	return (bytes);
-}
+// 	if (flags->zero)
+// 		format++;
+// 	bytes = 0;
+// 	while (!ft_strchr("cspdiuxX%", format[bytes]))
+// 		bytes++;
+// 	if (ft_isdigit(*format))
+// 		size = ft_atoi(ft_substr(format, 0, bytes));
+// 	return (bytes);
+// }
