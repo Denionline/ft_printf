@@ -35,6 +35,7 @@ FILES		+= ft_printchar.c
 FILES		+= ft_printnbr.c
 FILES		+= ft_printptr.c
 FILES		+= ft_printuint.c
+FILES		+= ft_printflags.c
 
 SRC			= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS		= $(SRC:%.c=%.o)
@@ -61,6 +62,8 @@ AR          = ar rcs
 .PHONY: all clean fclean re
 
 all: $(NAME)
+
+bonus: all
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_PATH)

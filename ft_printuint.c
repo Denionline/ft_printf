@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 11:07:21 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/02 11:34:35 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:34:05 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	ft_uintsize(unsigned int n)
 	return (size);
 }
 
-int	ft_printuint(unsigned int n)
+int	ft_printuint(unsigned int n, t_flag *flags)
 {
 	size_t	bytes;
 	size_t	size;
@@ -35,14 +35,17 @@ int	ft_printuint(unsigned int n)
 	string = (char *)malloc(size + 1);
 	if (!string)
 		return (0);
-	ft_memset(string, '-', size);
 	string[size] = '\0';
 	while (size--)
 	{
 		string[size] = (n % 10) + '0';
 		n /= 10;
 	}
-	bytes = ft_printstr(string);
+	bytes = 0;
+	if (flags->digit && !ft_strchr("cspdiuxX%", *flags->format))
+		bytes += ft_printflags(flags, string);
+	else
+		bytes = ft_printstr(string, flags);
 	free(string);
 	return (bytes);
 }
