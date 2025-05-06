@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:58:54 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/06 18:10:26 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:30:28 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*fh_getstring(const char *string, t_flag *flags)
 	char	*temp;
 	char	*newstring;
 
-	lstring = ft_strlen(string) + (*string == '\0');
+	lstring = ft_strlen(string);
 	if (flags->precision > lstring)
 		flags->precision -= lstring;
 	else
@@ -82,6 +82,7 @@ size_t	ft_printflags(t_flag *flags, const char *string)
 {
 	char	*newstring;
 	size_t	bytes;
+	size_t	lnewstring;
 
 	fh_setwp(flags);
 	newstring = fh_getstring(string, flags);
@@ -89,12 +90,13 @@ size_t	ft_printflags(t_flag *flags, const char *string)
 		flags->pad = '0';
 	else
 		flags->pad = ' ';
+	lnewstring = ft_strlen(newstring) + (*newstring == '\0');
 	bytes = 0;
 	if (!flags->minus)
-		bytes += fh_printpad(flags, flags->width - ft_strlen(newstring));
+		bytes += fh_printpad(flags, flags->width - lnewstring);
 	bytes += ft_printstr(newstring, flags, FALSE);
 	if (flags->minus)
-		bytes += fh_printpad(flags, flags->width - ft_strlen(newstring));
+		bytes += fh_printpad(flags, flags->width - lnewstring);
 	free(newstring);
 	return (bytes);
 }
