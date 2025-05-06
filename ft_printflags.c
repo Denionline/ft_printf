@@ -6,50 +6,95 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:58:54 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/04 19:37:31 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:10:26 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
+
+static void	fh_setwp(t_flag *flags)
+{
+	int	precision;
+	int	width;
+
+	while (!ft_isdigit(*flags->format) && *flags->format != '.')
+		flags->format++;
+	if (ft_isdigit(*flags->format))
+	{
+		width = 0;
+		while (flags->digit && ft_isdigit(*flags->format))
+			width = width * 10 + (*(flags->format++) - '0');
+		flags->width = width;
+	}
+	if (*flags->format++ == '.')
+	{
+		precision = 0;
+		while (flags->digit && ft_isdigit(*flags->format))
+			precision = precision * 10 + (*(flags->format++) - '0');
+		flags->precision = precision;
+	}
+}
 
 static size_t	fh_printpad(t_flag *flags, int size)
 {
 	size_t	bytes;
 
 	bytes = 0;
-	if (flags->hash)
-		bytes += ft_printchar('0', flags) + ft_printchar(*flags->format, flags);
-	while ((size--) > flags->plus)
-		bytes += ft_printchar(flags->pad, flags);
+	if (flags->negative)
+		bytes += ft_printchar('-', flags, FALSE);
+	while (((size--) - flags->hash) > flags->plus)
+		bytes += ft_printchar(flags->pad, flags, FALSE);
 	if (flags->plus)
-		bytes += ft_printchar('+', flags);
+		bytes += ft_printchar('+', flags, FALSE);
 	return (bytes);
+}
+
+static char	*fh_getstring(const char *string, t_flag *flags)
+{
+	int		lstring;
+	int		i;
+	char	*temp;
+	char	*newstring;
+
+	lstring = ft_strlen(string) + (*string == '\0');
+	if (flags->precision > lstring)
+		flags->precision -= lstring;
+	else
+		flags->precision = 0;
+	lstring += flags->precision;
+	temp = (char *)malloc(lstring + 1);
+	if (!temp)
+		return (0);
+	ft_memset(temp, '0', lstring);
+	temp[lstring] = '\0';
+	if (flags->hash)
+		newstring = ft_strjoin("0x", temp);
+	else
+		newstring = ft_strdup(temp);
+	free(temp);
+	i = -1;
+	while (++i < (lstring - flags->precision))
+		newstring[i + flags->precision + flags->hash] = string[i];
+	return (newstring);
 }
 
 size_t	ft_printflags(t_flag *flags, const char *string)
 {
+	char	*newstring;
 	size_t	bytes;
-	size_t	size;
-	int		width;
 
+	fh_setwp(flags);
+	newstring = fh_getstring(string, flags);
 	if (*flags->format == '0')
 		flags->pad = '0';
 	else
 		flags->pad = ' ';
-	while (!ft_isdigit(*flags->format))
-		flags->format++;
-	width = 0;
-	while (flags->digit && ft_isdigit(*flags->format))
-		width = width * 10 + (*(flags->format++) - '0');
-	size = ft_strlen(string);
 	bytes = 0;
 	if (!flags->minus)
-		bytes += fh_printpad(flags, (width - flags->hexa) - size);
-	if (flags->hexa)
-		bytes += ft_printstr("0x", flags);
-	while (*string)
-		bytes += ft_printchar(*string++, flags);
+		bytes += fh_printpad(flags, flags->width - ft_strlen(newstring));
+	bytes += ft_printstr(newstring, flags, FALSE);
 	if (flags->minus)
-		bytes += fh_printpad(flags, (width - flags->hexa) - size);
+		bytes += fh_printpad(flags, flags->width - ft_strlen(newstring));
+	free(newstring);
 	return (bytes);
 }

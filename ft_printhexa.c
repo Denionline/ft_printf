@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/04 17:34:50 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:11:04 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	fh_sizehexa(unsigned int nbr)
 	return (i);
 }
 
-int	ft_printhexa(unsigned int n, int c, t_flag *flags)
+int	ft_printhexa(unsigned int n, int c, t_flag *flags, int toverify)
 {
 	const char	*hexa = "0123456789abcdef";
 	size_t		bytes;
@@ -45,11 +45,10 @@ int	ft_printhexa(unsigned int n, int c, t_flag *flags)
 			buff[size] = hexa[n % 16];
 		n /= 16;
 	}
-	bytes = 0;
-	if (flags->digit && !ft_strchr("cspdiuxX%", *flags->format))
-		bytes += ft_printflags(flags, buff);
+	if (toverify)
+		bytes = ft_printflags(flags, buff);
 	else
-		bytes += ft_printstr(buff, flags);
+		bytes = ft_printstr(buff, flags, FALSE);
 	free(buff);
 	return (bytes);
 }
