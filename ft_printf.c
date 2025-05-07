@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/06 15:22:51 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:17:02 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static size_t	fh_printsy(int sy, va_list args, t_flag *flags)
 	if (sy == 'c')
 		return (ft_printchar((char)va_arg(args, int), flags, flags->exist));
 	if (sy == '%')
-		return (ft_printchar(sy, flags, flags->exist));
+		return (ft_printchar(sy, flags, FALSE));
 	if (sy == 'u')
 		return (ft_printuint(va_arg(args, unsigned int), flags, flags->exist));
 	if (sy == 'p')
-		return (ft_printptr(va_arg(args, void *), flags, TRUE));
+		return (ft_printptr(va_arg(args, void *), flags));
 	if (sy == 'd' || sy == 'i')
 		return (ft_printnbr(va_arg(args, int), flags, flags->exist));
 	if (sy == 'x' || sy == 'X')
@@ -56,15 +56,16 @@ int	ft_printf(const char *format, ...)
 	t_flag	flags;
 
 	va_start(args, format);
-	ft_memset(&flags, 0, sizeof(flags));
 	bytes = 0;
 	while (*format)
 	{
 		if (*format == '%' && *(format + 1))
 		{
+			ft_memset(&flags, 0, sizeof(flags));
 			flags.format = (char *)format + 1;
 			while (!ft_strchr("cspdiuxX%", *(++format)))
 				fh_setflag(*format, &flags);
+			flags.symbol = *format;
 			bytes += fh_printsy(*format, args, &flags);
 		}
 		else

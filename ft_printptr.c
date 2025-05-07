@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:37:57 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/06 15:21:01 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:03:05 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	fh_sizehexa(uintptr_t nbr)
 	return (i);
 }
 
-static int	fh_printhexa(uintptr_t n, t_flag *flags, int toverify)
+static int	fh_printhexa(uintptr_t n, t_flag *flags)
 {
 	const char	*hexa = "0123456789abcdef";
 	size_t		bytes;
@@ -42,22 +42,15 @@ static int	fh_printhexa(uintptr_t n, t_flag *flags, int toverify)
 		buff[size] = (char)hexa[n % 16];
 		n /= 16;
 	}
-	bytes = 0;
-	if (toverify)
-		bytes += ft_printflags(flags, buff);
-	else
-		bytes += ft_printstr(buff, flags, FALSE);
+	bytes = ft_printflags(flags, buff);
 	free(buff);
 	return (bytes);
 }
 
-int	ft_printptr(void *nbr, t_flag *flags, int toverify)
+int	ft_printptr(void *nbr, t_flag *flags)
 {
-	uintptr_t	addr;
-
-	addr = (uintptr_t)nbr;
-	if (addr == 0)
+	if ((uintptr_t)nbr == 0)
 		return (ft_printstr("(nil)", flags, FALSE));
 	flags->hash = 2;
-	return (fh_printhexa(addr, flags, toverify));
+	return (fh_printhexa((uintptr_t)nbr, flags));
 }

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/06 14:11:04 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:17:52 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_printhexa(unsigned int n, int c, t_flag *flags, int toverify)
 	while (size--)
 	{
 		if (c == 'X')
-			buff[size] = ft_toupper(hexa[n % 16]);
+			buff[size] = ft_toupper((hexa)[n % 16]);
 		else
 			buff[size] = hexa[n % 16];
 		n /= 16;

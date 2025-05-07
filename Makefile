@@ -84,7 +84,6 @@ main:
 val:
 	@$(CC) $(CFLAGS) main.c $(NAME)
 	@valgrind ./a.out
-	@$(RM) a.out
 
 clean:
 	@make clean -C $(LIBFT_PATH)
