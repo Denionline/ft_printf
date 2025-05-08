@@ -76,14 +76,24 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 	@printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
 
-main:
+m:
 	@$(CC) $(CFLAGS) main.c $(NAME)
+	@./a.out
+	@$(RM) a.out
+msf:
+	@$(CC) main.c $(NAME)
 	@./a.out
 	@$(RM) a.out
 
 val:
 	@$(CC) $(CFLAGS) main.c $(NAME)
 	@valgrind ./a.out
+	@$(RM) a.out
+
+valsf:
+	@$(CC) main.c $(NAME)
+	@valgrind ./a.out
+	@$(RM) a.out
 
 clean:
 	@make clean -C $(LIBFT_PATH)

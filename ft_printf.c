@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/07 16:17:02 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:34:25 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ static void	fh_setflag(int c, t_flag *flags)
 		flags->digit = (++isthereflag > 0);
 	if (c == '.')
 		flags->point = (++isthereflag > 0);
-	flags->exist = (isthereflag > 0);
+	if (flags->minus && !flags->digit)
+		flags->exist = 0;
+	else
+		flags->exist = (isthereflag > 0);
+	flags->prec = -1;
 }
 
 static size_t	fh_printsy(int sy, va_list args, t_flag *flags)

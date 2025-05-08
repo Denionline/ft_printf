@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:42:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/07 15:35:34 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:09:18 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_flag
 	int		negative;
 	int		pad;
 	int		width;
-	int		precision;
+	int		prec;
 	int		symbol;
 	int		exist;
 	char	*format;

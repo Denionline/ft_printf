@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:34:45 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/06 14:45:27 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:16:35 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_printnbr(int nbr, t_flag *flags, int toverify)
 		flags->negative = TRUE;
 	i = 0;
 	if (toverify)
-		bytes = ft_printflags(flags, string + flags->negative);
+		bytes = ft_printflags(flags, string + (nbr < 0));
 	else
 		while (string[i])
 			bytes += ft_printchar(string[i++], flags, FALSE);
