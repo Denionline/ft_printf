@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printchar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:31:21 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/06 18:02:54 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:03:20 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-int	ft_printchar(int c, t_flag *flags, int toverify)
+int	ft_printchar(int c)
 {
-	if (toverify)
-		return (ft_printflags(flags, (const char *)&c));
 	return (write(1, &c, 1));
 }

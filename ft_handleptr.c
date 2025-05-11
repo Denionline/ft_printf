@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printhexa.c                                     :+:      :+:    :+:   */
+/*   ft_handleptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/10 13:03:11 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/26 17:37:57 by dximenes          #+#    #+#             */
+/*   Updated: 2025/05/11 10:16:46 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-static size_t	fh_sizehexa(unsigned int nbr)
+static size_t	fh_sizeptr(uintptr_t nbr)
 {
 	size_t	i;
 
@@ -22,26 +22,27 @@ static size_t	fh_sizehexa(unsigned int nbr)
 	return (i);
 }
 
-int	ft_printhexa(unsigned int n, int c)
+char	*ft_handleptr(void *addr)
 {
-	const char	*hexa = "0123456789abcdef";
-	size_t		bytes;
+	uintptr_t	nbr;
 	size_t		size;
 	char		*buff;
+	char		*newaddr;
 
-	size = fh_sizehexa(n);
+	nbr = (uintptr_t)addr;
+	if (nbr == 0)
+		return (ft_strdup("(nil)"));
+	size = fh_sizeptr(nbr);
 	buff = (char *)malloc(size + 1);
 	if (!buff)
-		return (0);
+		return (NULL);
 	buff[size] = '\0';
 	while (size--)
 	{
-		if (c == 'X')
-			buff[size] = ft_toupper((hexa)[n % 16]);
-		else
-			buff[size] = hexa[n % 16];
-		n /= 16;
+		buff[size] = "0123456789abcdef"[nbr % 16];
+		nbr /= 16;
 	}
-	bytes = ft_printstr(buff);
-	return (free(buff), bytes);
+	newaddr = ft_strjoin("0x", buff);
+	free(buff);
+	return (newaddr);
 }

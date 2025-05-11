@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printhexa.c                                     :+:      :+:    :+:   */
+/*   ft_handlehexa.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:28:10 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/10 13:03:11 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 11:31:24 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@ static size_t	fh_sizehexa(unsigned int nbr)
 	return (i);
 }
 
-int	ft_printhexa(unsigned int n, int c)
+char	*ft_handlehexa(unsigned int n, int c)
 {
 	const char	*hexa = "0123456789abcdef";
-	size_t		bytes;
 	size_t		size;
 	char		*buff;
 
 	size = fh_sizehexa(n);
 	buff = (char *)malloc(size + 1);
 	if (!buff)
-		return (0);
+		return (NULL);
 	buff[size] = '\0';
 	while (size--)
 	{
@@ -42,6 +41,5 @@ int	ft_printhexa(unsigned int n, int c)
 			buff[size] = hexa[n % 16];
 		n /= 16;
 	}
-	bytes = ft_printstr(buff);
-	return (free(buff), bytes);
+	return (buff);
 }

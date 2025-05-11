@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printnbr.c                                      :+:      :+:    :+:   */
+/*   ft_handlestr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 17:34:45 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 10:30:45 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/26 17:32:30 by dximenes          #+#    #+#             */
+/*   Updated: 2025/05/11 11:01:53 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-int	ft_printnbr(int nbr)
+char	*ft_handlestr(const char *str, t_flag *f)
 {
-	size_t	bytes;
-	char	*string;
-	int		i;
+	char	*new;
 
-	string = ft_itoa(nbr);
-	bytes = 0;
-	if (!string)
-		return (0);
-	i = 0;
-	while (string[i])
-		bytes += ft_printchar(string[i++]);
-	free(string);
-	return (bytes);
+	if (!str)
+		return (ft_strdup("(null)"));
+	if (f->dot && !(f->precision > 0))
+		return (ft_strdup(""));
+	new = ft_strdup(str);
+	if (!new)
+		return (NULL);
+	return (new);
 }

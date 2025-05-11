@@ -3,131 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printflags.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/04 16:58:54 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/09 11:55:35 by dximenes         ###   ########.fr       */
+/*   Created: 2025/05/09 17:42:34 by dximenes          #+#    #+#             */
+/*   Updated: 2025/05/11 14:03:07 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-static void	fh_setwp(t_flag *flags)
+int	ft_printflags(int sy, va_list args, t_flag *flags)
 {
-	if (*flags->format == '0' && !flags->point)
+	char	prefix[3];
+	char	*str;
+	int		lprefix;
+	int		bytes;
+	int		len;
+	int		precision;
+	int		width;
+	int		i;
+
+	precision = 0;
+	width = 0;
+	lprefix = 0;
+	bytes = 0;
+	len = 0;
+
+	flags->sy = sy;
+	if (sy == 's')
+		str = ft_handlestr(va_arg(args, char *), flags);
+	if (sy == 'c')
+		str = ft_handlechar((char)va_arg(args, int));
+	if (sy == '%')
+		return (ft_printchar(sy));
+	if (sy == 'u')
+		str = ft_handleuint(va_arg(args, unsigned int));
+	if (sy == 'p')
+		str = ft_handleptr(va_arg(args, void *));
+	if (sy == 'd' || sy == 'i')
+		str = ft_handlenbr(va_arg(args, int), flags);
+	if (sy == 'x' || sy == 'X')
+		str = ft_handlehexa(va_arg(args, int), sy);
+	
+	if (!str)
+		return (0);
+	if ((sy == 'i' || sy == 'd') && !flags->negative)
+	{
+		if (flags->plus)
+			prefix[lprefix++] = '+';
+		if (flags->space)
+			prefix[lprefix++] = ' ';
+	}
+	if ((sy == 'x' || sy == 'X') && flags->hash && str[0] != '0')
+	{
+		prefix[lprefix++] = '0';
+		prefix[lprefix++] = flags->sy;
+	}
+	prefix[lprefix] = 0;
+
+	len = ft_strlen(str);
+	len += ft_strlen(prefix);
+	if (flags->precision > 0 && flags->sy == 's')
+	{
+		if (!str && flags->precision < 7)
+			str[0] = (flags->precision > 7);
+		else if (flags->precision < len)
+			str[flags->precision] = '\0';
+	}
+	else if (flags->precision > 0)
+	{
+		if (flags->precision > len)
+		{
+			precision = flags->precision - len;
+			len = flags->precision;
+		}
+	}
+	if (flags->width)
+	{
+		width = flags->width - len - flags->negative;
+		len = flags->width;
+	}
+	
+	if (flags->sy == 'c' && str[0] == '\0')
+		width--;
+	if (flags->zero && !flags->minus && !flags->hash && !flags->dot)
 		flags->pad = '0';
 	else
 		flags->pad = ' ';
-	while (ft_strchr("+- ", *flags->format) && *flags->format)
-		flags->format++;
-	if (ft_isdigit(*flags->format))
-	{
-		flags->width = ft_atoi(flags->format);
-		while (ft_isdigit(*flags->format))
-			flags->format++;
-	}
-	if (*flags->format == '.' && ft_isdigit(*(flags->format + 1)))
-	{
-		if (*(++flags->format) == '0' && !ft_isdigit(*(flags->format + 1)))
-			flags->prec = 0;
-		else
-			flags->prec = ft_atoi(flags->format);
-		while (ft_isdigit(*flags->format))
-			flags->format++;
-	}
-}
 
-static size_t	fh_printpad(t_flag *flags, int size)
-{
-	size_t	bytes;
+	if (flags->negative)
+			bytes += ft_printchar('-');
 
-	bytes = 0;
-	if (flags->negative == 1 && size--)
-		bytes += ft_printchar('-', flags, FALSE);
-	while ((size--) > flags->plus)
-		bytes += ft_printchar(flags->pad, flags, FALSE);
-	return (bytes);
-}
-
-static	size_t	fh_newstrlen(const char *string, t_flag *flags)
-{
-	int	lstring;
-
-	lstring = ft_strlen(string);
-	if (*string == '0' && flags->prec == 0)
-		return (0);
-	if (flags->symbol == 's' && flags->point)
-	{
-		if (*flags->format == '.')
-			return (0);
-		if (flags->prec < lstring && !flags->null)
-			lstring = flags->prec;
-		if (flags->null && flags->prec < lstring)
-			lstring = 0;
-	}
-	else if (flags->point && flags->digit)
-	{
-		if (flags->prec >= lstring)
-			flags->diff = flags->prec - lstring;
-		if (flags->prec < lstring)
-			flags->diff = 0;
-		lstring += flags->diff;
-	}
-	return (lstring);
-}
-
-static char	*fh_getstring(const char *string, t_flag *flags)
-{
-	int		i;
-	int		lstring;
-	char	*temp;
-	char	*newstring;
-	int		diff;
-
-	lstring = fh_newstrlen(string, flags) + (flags->negative == 2);
-	temp = (char *)malloc(lstring + 1);
-	if (!temp)
-		return (0);
-	ft_memset(temp, '0', lstring);
-	temp[lstring] = '\0';
-	if (flags->hash && flags->symbol != 's')
-		newstring = ft_strjoin("0x", temp);
+	if (width > 0 && !flags->minus)
+		while (width--)
+			bytes += ft_printchar(flags->pad);
+	i = 0;
+	while (prefix[i] != '\0')
+		bytes += ft_printchar(prefix[i++]);
+	if (precision)
+		while (precision--)
+			bytes += ft_printchar('0');
+	if (flags->sy == 'c' && str[0] == '\0')
+		bytes += ft_printchar('\0');
 	else
-		newstring = ft_strdup(temp);
-	free(temp);
-	diff = flags->hash;
-	if (flags->diff > 0)
-		diff += flags->diff;
-	i = -1;
-	while (++i < lstring)
-		newstring[i + diff + (flags->negative == 2)] = string[i];
-	return (newstring);
-}
-
-size_t	ft_printflags(t_flag *flags, const char *string)
-{
-	char	*newstr;
-	size_t	bytes;
-	size_t	lnewstr;
-	int		count;
-
-	if (!flags->digit && flags->point && flags->symbol == 's')
-		return (0);
-	fh_setwp(flags);
-	newstr = fh_getstring(string, flags);
-	if (flags->negative == 2)
-		newstr[0] = '-';
-	count = 0;
-	if (flags->null && !flags->exist)
-		count += 1;
-	lnewstr = ft_strlen(newstr) + count;
-	bytes = 0;
-	if (flags->exist && !flags->minus)
-		bytes += fh_printpad(flags, flags->width - lnewstr);
-	if ((flags->null && !flags->exist) || !flags->null)
-		bytes += ft_printstr(newstr, flags, FALSE);
-	if (flags->exist && flags->minus)
-		bytes += fh_printpad(flags, flags->width - lnewstr);
-	free(newstr);
+		bytes += ft_printstr(str);
+	if (width > 0 && flags->minus)
+		while (width--)
+			bytes += ft_printchar(flags->pad);
+	free(str - flags->negative);
 	return (bytes);
 }

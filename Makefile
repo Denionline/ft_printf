@@ -35,7 +35,14 @@ FILES		+= ft_printchar.c
 FILES		+= ft_printnbr.c
 FILES		+= ft_printptr.c
 FILES		+= ft_printuint.c
+
 FILES		+= ft_printflags.c
+FILES		+= ft_handlechar.c
+FILES		+= ft_handlehexa.c
+FILES		+= ft_handlestr.c
+FILES		+= ft_handlenbr.c
+FILES		+= ft_handleptr.c
+FILES		+= ft_handleuint.c
 
 SRC			= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS		= $(SRC:%.c=%.o)
@@ -77,23 +84,30 @@ $(NAME): $(OBJS)
 	@printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
 
 m:
+	@clear
 	@$(CC) $(CFLAGS) main.c $(NAME)
 	@./a.out
 	@$(RM) a.out
 msf:
+	@clear
 	@$(CC) main.c $(NAME)
 	@./a.out
 	@$(RM) a.out
 
 val:
+	@clear
 	@$(CC) $(CFLAGS) main.c $(NAME)
 	@valgrind ./a.out
 	@$(RM) a.out
 
 valsf:
+	@clear
 	@$(CC) main.c $(NAME)
 	@valgrind ./a.out
 	@$(RM) a.out
+gdb:
+	@$(CC) main.c $(NAME) -g
+	@gdb ./a.out
 
 clean:
 	@make clean -C $(LIBFT_PATH)

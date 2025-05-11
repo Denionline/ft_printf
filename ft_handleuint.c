@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printnbr.c                                      :+:      :+:    :+:   */
+/*   ft_handleuint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 17:34:45 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 10:30:45 by dximenes         ###   ########.fr       */
+/*   Created: 2025/04/27 11:07:21 by dximenes          #+#    #+#             */
+/*   Updated: 2025/05/10 16:12:06 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-int	ft_printnbr(int nbr)
+static size_t	ft_uintsize(unsigned int n)
 {
-	size_t	bytes;
-	char	*string;
-	int		i;
+	size_t	size;
 
-	string = ft_itoa(nbr);
-	bytes = 0;
+	size = 0;
+	while (++size && n >= 10)
+		n /= 10;
+	return (size);
+}
+
+char	*ft_handleuint(unsigned int n)
+{
+	size_t	size;
+	char	*string;
+
+	size = ft_uintsize(n);
+	string = (char *)malloc(size + 1);
 	if (!string)
-		return (0);
-	i = 0;
-	while (string[i])
-		bytes += ft_printchar(string[i++]);
-	free(string);
-	return (bytes);
+		return (NULL);
+	string[size] = '\0';
+	while (size--)
+	{
+		string[size] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (string);
 }

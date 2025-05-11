@@ -3,53 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenes <dximenes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/08 14:34:25 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 14:08:05 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 
-static void	fh_setflag(int c, t_flag *flags)
+static void	fh_parse_flags(t_flag *f, const char **s)
 {
-	int	isthereflag;
-
-	isthereflag = 0;
-	if (c == '+')
-		flags->plus = (++isthereflag > 0);
-	if (c == '-')
-		flags->minus = (++isthereflag > 0);
-	if (c == '#')
-		flags->hash = (++isthereflag > 0);
-	if (ft_isdigit(c))
-		flags->digit = (++isthereflag > 0);
-	if (c == '.')
-		flags->point = (++isthereflag > 0);
-	if (flags->minus && !flags->digit)
-		flags->exist = 0;
-	else
-		flags->exist = (isthereflag > 0);
-	flags->prec = -1;
+	while (**s && !ft_strchr(".cspdiuxX%123456789", **s))
+	{
+		if (**s == '-')
+			f->minus = (++f->is_there_flags && (*s)++);
+		else if (**s == '+')
+			f->plus = (++f->is_there_flags && (*s)++);
+		else if (**s == ' ')
+			f->space = (++f->is_there_flags && (*s)++);
+		else if (**s == '0')
+			f->zero = (++f->is_there_flags && (*s)++);
+		else if (**s == '#')
+			f->hash = (++f->is_there_flags && (*s)++);
+	}
+	if (ft_isdigit(**s))
+		f->width = ft_atoi(*s);
+	while (ft_isdigit(**s))
+		*s += 1;
+	if (**s == '.')
+	{
+		f->dot = (++f->is_there_flags);
+		while (ft_isdigit(*(++*s)))
+			f->precision = f->precision * 10 + (**s - '0');
+	}
+	if (f->width || f->precision)
+		++f->is_there_flags;
 }
 
-static size_t	fh_printsy(int sy, va_list args, t_flag *flags)
+static size_t	fh_printsy(int sy, va_list args)
 {
 	if (sy == 's')
-		return (ft_printstr(va_arg(args, char *), flags, flags->exist));
+		return (ft_printstr(va_arg(args, char *)));
 	if (sy == 'c')
-		return (ft_printchar((char)va_arg(args, int), flags, flags->exist));
+		return (ft_printchar((char)va_arg(args, int)));
 	if (sy == '%')
-		return (ft_printchar(sy, flags, FALSE));
+		return (ft_printchar(sy));
 	if (sy == 'u')
-		return (ft_printuint(va_arg(args, unsigned int), flags, flags->exist));
+		return (ft_printuint(va_arg(args, unsigned int)));
 	if (sy == 'p')
-		return (ft_printptr(va_arg(args, void *), flags));
+		return (ft_printptr(va_arg(args, void *)));
 	if (sy == 'd' || sy == 'i')
-		return (ft_printnbr(va_arg(args, int), flags, flags->exist));
+		return (ft_printnbr(va_arg(args, int)));
 	if (sy == 'x' || sy == 'X')
-		return (ft_printhexa(va_arg(args, int), sy, flags, flags->exist));
+		return (ft_printhexa(va_arg(args, int), sy));
 	return (0);
 }
 
@@ -63,18 +70,17 @@ int	ft_printf(const char *format, ...)
 	bytes = 0;
 	while (*format)
 	{
-		if (*format == '%' && *(format + 1))
+		if (*format == '%' && *(format++))
 		{
 			ft_memset(&flags, 0, sizeof(flags));
-			flags.format = (char *)format + 1;
-			while (!ft_strchr("cspdiuxX%", *(++format)))
-				fh_setflag(*format, &flags);
-			flags.symbol = *format;
-			bytes += fh_printsy(*format, args, &flags);
+			fh_parse_flags(&flags, &format);
+			if (flags.is_there_flags)
+				bytes += ft_printflags(*format++, args, &flags);
+			else
+				bytes += fh_printsy(*format++, args);
 		}
 		else
-			bytes += ft_printchar(*format, &flags, FALSE);
-		format++;
+			bytes += ft_printchar(*(format++));
 	}
 	va_end(args);
 	return (bytes);
