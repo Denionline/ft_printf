@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 14:08:05 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:00:49 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ static void	fh_parse_flags(t_flag *f, const char **s)
 	while (**s && !ft_strchr(".cspdiuxX%123456789", **s))
 	{
 		if (**s == '-')
-			f->minus = (++f->is_there_flags && (*s)++);
+			f->minus = (++f->is_there_flags > 0);
 		else if (**s == '+')
-			f->plus = (++f->is_there_flags && (*s)++);
+			f->plus = (++f->is_there_flags > 0);
 		else if (**s == ' ')
-			f->space = (++f->is_there_flags && (*s)++);
+			f->space = (++f->is_there_flags > 0);
 		else if (**s == '0')
-			f->zero = (++f->is_there_flags && (*s)++);
+			f->zero = (++f->is_there_flags > 0);
 		else if (**s == '#')
-			f->hash = (++f->is_there_flags && (*s)++);
+			f->hash = (++f->is_there_flags > 0);
+		(*s)++;
 	}
 	if (ft_isdigit(**s))
 		f->width = ft_atoi(*s);
@@ -37,8 +38,7 @@ static void	fh_parse_flags(t_flag *f, const char **s)
 		while (ft_isdigit(*(++*s)))
 			f->precision = f->precision * 10 + (**s - '0');
 	}
-	if (f->width || f->precision)
-		++f->is_there_flags;
+	f->is_there_flags += (f->width > 0 || f->precision > 0);
 }
 
 static size_t	fh_printsy(int sy, va_list args)

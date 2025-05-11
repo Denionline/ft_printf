@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:37:57 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/10 13:02:42 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:19:00 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_printptr(void *addr)
 {
 	uintptr_t	nbr;
 	size_t		size;
+	size_t		bytes;
 	char		*buff;
 	char		*newaddr;
-	size_t		bytes;
 
 	nbr = (uintptr_t)addr;
 	if (nbr == 0)
@@ -44,6 +44,8 @@ int	ft_printptr(void *addr)
 		nbr /= 16;
 	}
 	newaddr = ft_strjoin("0x", buff);
+	if (!newaddr)
+		return (0);
 	free(buff);
 	bytes = ft_printstr(newaddr);
 	return (free(newaddr), bytes);

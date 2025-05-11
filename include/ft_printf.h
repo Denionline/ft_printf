@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:42:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 11:01:29 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:37:28 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int		ft_printuint(unsigned int n);
 
 int		ft_printflags(int sy, va_list args, t_flag *flags);
 char	*ft_handlechar(int c);
-char	*ft_handlehexa(unsigned int n, int c);
+char	*ft_handlehexa(unsigned int n, int c, t_flag *f);
 char	*ft_handlestr(const char *str, t_flag *f);
 char	*ft_handlenbr(int nbr, t_flag *f);
-char	*ft_handleptr(void *addr);
-char	*ft_handleuint(unsigned int n);
+char	*ft_handleptr(void *addr, t_flag *f);
+char	*ft_handleuint(unsigned int n, t_flag *f);
 
 #endif

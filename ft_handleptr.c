@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:37:57 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 10:16:46 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:19:46 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ static size_t	fh_sizeptr(uintptr_t nbr)
 	return (i);
 }
 
-char	*ft_handleptr(void *addr)
+char	*ft_handleptr(void *addr, t_flag *f)
 {
 	uintptr_t	nbr;
 	size_t		size;
 	char		*buff;
-	char		*newaddr;
 
 	nbr = (uintptr_t)addr;
 	if (nbr == 0)
@@ -42,7 +41,6 @@ char	*ft_handleptr(void *addr)
 		buff[size] = "0123456789abcdef"[nbr % 16];
 		nbr /= 16;
 	}
-	newaddr = ft_strjoin("0x", buff);
-	free(buff);
-	return (newaddr);
+	f->hash = TRUE;
+	return (buff);
 }

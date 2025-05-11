@@ -119,11 +119,11 @@ all: $(BUILD_PATH) $(NAME)
 
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
-	@printf "$(COLOR_GREEN)Created archive $(COLOR_YELLOW)$(NAME)$(COLOR_DEF_COLOR)\n"
+# @printf "$(COLOR_GREEN)Created archive $(COLOR_YELLOW)$(NAME)$(COLOR_DEF_COLOR)\n"
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
+# @printf "$(COLOR_YELLOW)Compiled: $(COLOR_BLUE)$< → $@$(COLOR_DEF_COLOR)\n"
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
@@ -133,13 +133,14 @@ $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)/$(FT_PUT_PATH)
 	@mkdir $(BUILD_PATH)/$(FT_MEM_PATH)
 	@mkdir $(BUILD_PATH)/$(FT_LST_PATH)
-	@printf "$(COLOR_CYAN)Created .build folder$(COLOR_DEF_COLOR)\n"
+# @printf "$(COLOR_CYAN)Created .build folder$(COLOR_DEF_COLOR)\n"
+
 clean:
 	@$(RM) $(BUILD_PATH)
-	@printf "$(COLOR_RED)Removed $(BUILD_PATH)$(COLOR_DEF_COLOR)\n"
+# @printf "$(COLOR_GRAY)Removed $(BUILD_PATH)$(COLOR_DEF_COLOR)\n"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@printf "$(COLOR_MAGENTA)Arquive $(NAME) removed!$(COLOR_DEF_COLOR)\n"
+# @printf "$(COLOR_MAGENTA)Arquive $(NAME) removed!$(COLOR_DEF_COLOR)\n"
 
 re: fclean all
