@@ -1,2 +1,4 @@
 .vscode
-/libft/.build
+build/
+/include/libft
+*.o
