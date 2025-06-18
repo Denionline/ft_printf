@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:32:30 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/10 18:29:15 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:07:34 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_printstr(const char *str)
 {

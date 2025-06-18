@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:42:34 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 18:37:35 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:07:34 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
+#include "ft_printf.h"
 
 static char	*fh_getstring(va_list args, t_flag *f)
 {
