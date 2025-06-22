@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:34:45 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 10:30:45 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:37:30 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	ft_printnbr(int nbr)
 {

@@ -6,11 +6,11 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:33:48 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 16:00:49 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:37:30 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
+#include "../include/ft_printf.h"
 
 static void	fh_parse_flags(t_flag *f, const char **s)
 {

@@ -6,7 +6,7 @@
 /*   By: dximenes <dximenes@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:42:07 by dximenes          #+#    #+#             */
-/*   Updated: 2025/05/11 18:37:28 by dximenes         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:16:37 by dximenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <stdarg.h>
-# include "../libft/include/libft.h"
+# include "libft/include/libft.h"
 
 # define TRUE 1
 # define FALSE 0
