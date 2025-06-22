@@ -74,11 +74,14 @@ MAKE		= make --no-print-directory
 
 .PHONY: all clean fclean re
 
-all: start auxiliar_libraries $(NAME)
+all: start auxiliar_libraries $(LIBFT) $(NAME)
 	@printf "\n$(C_GREEN)[ft_printf] is ready :D$(C_STD)\n"
 
 start:
 	@printf "$(C_MAGENTA)Library [ft_printf]$(C_STD)\n\n"
+
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_PATH)
 
 $(NAME): | $(BUILD_PATH)
 	@printf "\n$(C_YELLOW)Compile .c files:$(C_STD)\n"
@@ -112,7 +115,7 @@ auxiliar_libraries:
 	@printf "$(C_YELLOW)Checking libraries:$(C_STD)\n"
 	@$(MAKE) verify_libft
 
-verify_libft: $(LIBFT_PATH)
+verify_libft:
 	@if test ! -d "$(LIBFT_PATH)"; then $(MAKE) get_libft; \
 		else printf "libft: $(C_GREEN)✅$(C_STD)\n"; fi
 	@$(MAKE) update_modules
