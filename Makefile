@@ -16,7 +16,8 @@ C_WHITE = \033[0;97m
 #                                    Names                                     #
 # **************************************************************************** #
 
-NAME		= libftprintf.a
+NAME		= ft_printf
+ARQUIVE		= libftprintf.a
 LIBFT		= $(LIBFT_PATH)libft.a
 
 
@@ -74,16 +75,16 @@ MAKE		= make --no-print-directory
 
 .PHONY: all clean fclean re
 
-all: start auxiliar_libraries $(LIBFT) $(NAME)
-	@printf "\n$(C_GREEN)[ft_printf] is ready :D$(C_STD)\n"
+all: start auxiliar_libraries $(LIBFT) $(ARQUIVE)
+	@printf "\n$(C_GREEN)[$(NAME)] is ready :D$(C_STD)\n"
 
 start:
-	@printf "$(C_MAGENTA)Library [ft_printf]$(C_STD)\n\n"
+	@printf "$(C_MAGENTA)===========Library [$(NAME)]===========$(C_STD)\n"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
 
-$(NAME): | $(BUILD_PATH)
+$(ARQUIVE): | $(BUILD_PATH)
 	@printf "\n$(C_YELLOW)Compile .c files:$(C_STD)\n"
 	@TOTAL=$$(echo $(SRCS) | wc -w); \
 	CUR=1; \
@@ -98,7 +99,7 @@ $(NAME): | $(BUILD_PATH)
 	  CUR=$$((CUR + 1)); \
 	done; \
 	printf "\n"; \
-	$(AR) $(NAME) $(LIBFT) $(OBJS)
+	$(AR) $(ARQUIVE) $(LIBFT) $(OBJS)
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
@@ -107,7 +108,7 @@ clean:
 	@$(RM) $(BUILD_PATH)
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(ARQUIVE)
 
 re: fclean all
 
@@ -123,7 +124,7 @@ verify_libft:
 get_libft:
 	@echo "Cloning Libft"
 	@git clone $(LIBFT_URL) $(LIBFT_PATH)
-	@printf "\n$(C_GREEN)libft$(C_STD) successfully downloaded\n"
+	@printf "$(C_GREEN)libft$(C_STD) successfully downloaded\n"
 
 update_modules:
 	@git submodule init
