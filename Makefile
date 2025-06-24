@@ -16,9 +16,10 @@ C_WHITE = \033[0;97m
 #                                    Names                                     #
 # **************************************************************************** #
 
-NAME		= ft_printf
-ARQUIVE		= libftprintf.a
-LIBFT		= $(LIBFT_PATH)libft.a
+NAME			= ft_printf
+ARQUIVE			= libftprintf.a
+ARQUIVE_LIBFT	= libft.a
+LIBFT			= $(LIBFT_PATH)$(ARQUIVE_LIBFT)
 
 
 # **************************************************************************** #
@@ -98,8 +99,10 @@ $(ARQUIVE): | $(BUILD_PATH)
 	  printf "\rCompiling [%s] %3d%%" $$BAR $$PERC; \
 	  CUR=$$((CUR + 1)); \
 	done; \
-	printf "\n"; \
-	$(AR) $(ARQUIVE) $(LIBFT) $(OBJS)
+	printf "\n";
+	@cp $(LIBFT) .
+	@mv $(ARQUIVE_LIBFT) $(ARQUIVE)
+	@$(AR) $(ARQUIVE) $(OBJS)
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
