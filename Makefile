@@ -93,7 +93,7 @@ $(NAME): | $(BUILD_PATH)
 	  PERC=$$(printf "%d" $$((100 * CUR / TOTAL))); \
 	  FILLED=$$(printf "%0.f" $$((20 * PERC / 100))); \
 	  EMPTY=$$((20 - FILLED)); \
-	  BAR=$$(printf "$(C_GREEN)%*s$(C_STD)" $$FILLED "" | tr " " "#")$$(printf "%*s" $$EMPTY ""); \
+	  BAR=$$(printf "$(C_GREEN)%*s$(C_STD)" $$FILLED "" | tr " " "#")$$(printf "%*s" $$EMPTY "" | tr " " "."); \
 	  printf "\rCompiling [%s] %3d%%" $$BAR $$PERC; \
 	  CUR=$$((CUR + 1)); \
 	done; \
