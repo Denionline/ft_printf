@@ -77,7 +77,7 @@ MAKE		= make --no-print-directory
 .PHONY: all clean fclean re
 
 all: start auxiliar_libraries $(LIBFT) $(ARQUIVE)
-	@printf "\n$(C_GREEN)[$(NAME)] is ready :D$(C_STD)\n"
+	@printf "$(C_GREEN)[$(NAME)] is ready :D$(C_STD)\n"
 
 start:
 	@printf "$(C_MAGENTA)===========Library [$(NAME)]===========$(C_STD)\n"
