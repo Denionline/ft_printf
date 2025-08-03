@@ -116,7 +116,6 @@ fclean: clean
 re: fclean all
 
 auxiliar_libraries:
-	@printf "$(C_YELLOW)Checking libraries:$(C_STD)\n"
 	@$(MAKE) verify_libft
 
 verify_libft:
