@@ -85,8 +85,8 @@ start:
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
 
-$(ARQUIVE): | $(BUILD_PATH)
-	@printf "\n$(C_YELLOW)Compile .c files:$(C_STD)\n"
+$(ARQUIVE): $(BUILD_PATH)
+	@printf "\n$(C_YELLOW)Compile $(NAME) files:$(C_STD)\n"
 	@TOTAL=$$(echo $(SRCS) | wc -w); \
 	CUR=1; \
 	for SRC in $(SRCS); do \
